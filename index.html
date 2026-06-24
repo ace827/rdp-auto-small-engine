@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RDP Auto &amp; Small Engine — AI Receptionist Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Retell AI Widget -->
+  <script id="retell-widget"
+    src="https://dashboard.retellai.com/retell-widget-v2.js"
+    data-voice-public-key="public_key_67bcf12c573597e69878b"
+    data-voice-agent-id="agent_7f109763d0ee44e4c3dd765052"
+    data-title="RDP Auto &amp; Small Engine"
+    data-color="#b45309"
+    data-fab-text="Talk to Us"
+    data-bot-name="RDP AI Receptionist"
+    data-greeting-message="Hi, thanks for calling RDP Auto and Small Engine! I can schedule a service appointment, answer questions about repairs, or get your info to our team. How can I help you today?"
+  ></script>
+
+  <style>
+    :root {
+      --amber:   #b45309;
+      --amber2:  #d97706;
+      --amber3:  #f59e0b;
+      --green:   #15803d;
+      --green2:  #16a34a;
+      --dark:    #0c0a00;
+      --dark2:   #1a1200;
+      --ink:     #1c1002;
+      --mid:     #6b6043;
+      --off:     #fffbf0;
+      --warm:    #fef3c7;
+      --border:  #fde68a;
+      --white:   #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 15% 60%, rgba(180,83,9,.22) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 20%, rgba(21,128,61,.12) 0%, transparent 45%);
+      pointer-events: none;
+    }
+
+    /* ─── Card ─── */
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 28px 90px rgba(0,0,0,.55), 0 4px 16px rgba(0,0,0,.25);
+      max-width: 830px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* ─── Top band ─── */
+    .top-band {
+      background: linear-gradient(135deg, var(--dark) 0%, #1f1500 100%);
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 3px solid var(--amber);
+    }
+
+    .logo-mark {
+      width: 50px;
+      height: 50px;
+      background: var(--amber);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand { color: var(--white); flex: 1; }
+
+    .brand h1 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -.01em;
+    }
+
+    .brand p {
+      font-size: 0.72rem;
+      opacity: .55;
+      margin-top: 3px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    /* Bilingual badge in header */
+    .bilingual-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(180,83,9,.25);
+      border: 1.5px solid rgba(245,158,11,.4);
+      border-radius: 12px;
+      padding: 8px 15px;
+      white-space: nowrap;
+    }
+
+    .bilingual-badge .flags { font-size: 1.1rem; line-height: 1; }
+
+    .bilingual-badge .lang-info { color: var(--white); }
+
+    .bilingual-badge .lang-info strong {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .bilingual-badge .lang-info span {
+      font-size: 0.65rem;
+      opacity: .72;
+      font-style: italic;
+    }
+
+    /* ─── Bilingual strip ─── */
+    .bilingual-strip {
+      background: linear-gradient(90deg, var(--amber) 0%, var(--amber2) 50%, var(--green) 100%);
+      padding: 9px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .lang-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .strip-divider { color: rgba(255,255,255,.4); }
+
+    /* ─── Body ─── */
+    .body {
+      padding: 26px 32px 30px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* Left */
+    .left h2 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 9px;
+    }
+
+    .left h2 .accent { color: var(--amber); }
+
+    .tagline {
+      font-size: 0.87rem;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    /* Bilingual feature highlight */
+    .bilingual-feature {
+      background: linear-gradient(135deg, var(--warm) 0%, #fef9e7 100%);
+      border: 1.5px solid var(--border);
+      border-left: 4px solid var(--amber2);
+      border-radius: 10px;
+      padding: 11px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .bilingual-feature .bi-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+
+    .bilingual-feature strong { color: var(--amber); font-size: 0.845rem; display: block; margin-bottom: 2px; }
+
+    .bilingual-feature .es-line {
+      font-style: italic;
+      color: var(--mid);
+      font-size: 0.79rem;
+    }
+
+    /* Features */
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 18px;
+    }
+
+    .features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.845rem;
+      color: #374151;
+      line-height: 1.45;
+    }
+
+    .icon-wrap {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      background: var(--warm);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      color: var(--amber);
+    }
+
+    /* Chips */
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .chip {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.74rem;
+      color: var(--ink);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .chip svg { color: var(--amber); }
+
+    .chip.bilingual-chip {
+      background: var(--amber);
+      border-color: var(--amber);
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    /* Right */
+    .right { display: flex; flex-direction: column; gap: 12px; }
+
+    /* Services grid */
+    .svc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
+    .svc {
+      background: var(--off);
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .svc svg { color: var(--amber); flex-shrink: 0; }
+
+    /* Demo box */
+    .demo-box {
+      background: var(--dark);
+      border-radius: 14px;
+      padding: 19px 17px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .demo-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top right, rgba(180,83,9,.28) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .demo-box .arrow-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .demo-box .arrow-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--amber3);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .demo-box p {
+      font-size: 0.79rem;
+      color: rgba(255,255,255,.7);
+      line-height: 1.55;
+      position: relative;
+    }
+
+    .demo-box strong { color: var(--white); }
+
+    .arrow-anim { animation: bounce 1.4s ease-in-out infinite; display: inline-block; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50%       { transform: translateY(4px) translateX(4px); }
+    }
+
+    /* Say box */
+    .say-box {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 15px;
+    }
+
+    .say-box .label {
+      font-size: 0.69rem;
+      font-weight: 700;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 5px;
+    }
+
+    .say-box p { font-size: 0.78rem; color: var(--ink); line-height: 1.55; font-style: italic; }
+
+    .say-box .es {
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px dashed var(--border);
+      color: var(--mid);
+    }
+
+    /* ─── Footer ─── */
+    .footer-strip {
+      background: var(--dark);
+      padding: 11px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .footer-strip p { font-size: 0.71rem; color: rgba(255,255,255,.36); }
+    .footer-strip .powered { font-size: 0.67rem; color: rgba(255,255,255,.22); font-style: italic; }
+
+    .sprite { display: none; }
+
+    @media (max-width: 640px) {
+      html, body { overflow: auto; }
+      .body { grid-template-columns: 1fr; gap: 18px; padding: 20px 18px 24px; }
+      .top-band { padding: 14px 18px; flex-wrap: wrap; }
+      .bilingual-badge { order: 3; width: 100%; justify-content: center; }
+      .bilingual-strip { flex-direction: column; gap: 7px; }
+      .footer-strip { flex-direction: column; gap: 4px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-engine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="12" rx="2"/><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></symbol>
+  <symbol id="i-oil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1116 0z"/></symbol>
+  <symbol id="i-brake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.34a2 2 0 003.37 2.16L12 17l4 2 1-5 3-1-3-5z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-arrow-dr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="5" x2="19" y2="19"/><polyline points="13 19 19 19 19 13"/></symbol>
+</svg>
+
+<div class="card">
+
+  <!-- Top band -->
+  <div class="top-band">
+    <div class="logo-mark">
+      <svg width="26" height="26" color="#fff"><use href="#i-wrench"/></svg>
+    </div>
+    <div class="brand">
+      <h1>RDP Auto &amp; Small Engine</h1>
+      <p>Auto Repair &amp; Small Engine Service</p>
+    </div>
+    <div class="bilingual-badge">
+      <div class="flags">🇺🇸 🇲🇽</div>
+      <div class="lang-info">
+        <strong>English &amp; Español</strong>
+        <span>Hablamos su idioma</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bilingual strip -->
+  <div class="bilingual-strip">
+    <div class="lang-pill">🇺🇸 We speak English</div>
+    <div class="strip-divider">&bull;</div>
+    <div class="lang-pill" style="font-style:italic;">🇲🇽 Hablamos español</div>
+    <div class="strip-divider">&bull;</div>
+    <div class="lang-pill">
+      <svg width="12" height="12" color="rgba(255,255,255,.85)"><use href="#i-mic"/></svg>
+      Just start speaking — our AI follows your language
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+
+    <!-- Left -->
+    <div class="left">
+      <h2>Your <span class="accent">AI Receptionist</span><br>Never Misses a Call</h2>
+      <p class="tagline">
+        RDP's AI handles calls around the clock — scheduling service appointments, answering repair questions, and capturing customer info for both auto and small engine work.
+      </p>
+
+      <!-- Bilingual highlight -->
+      <div class="bilingual-feature">
+        <div class="bi-icon">🌐</div>
+        <div>
+          <strong>Fully Bilingual — English &amp; Spanish</strong>
+          <span class="es-line">Nuestro asistente habla español — llame en el idioma que prefiera</span>
+        </div>
+      </div>
+
+      <ul class="features">
+        <li>
+          <div class="icon-wrap"><svg width="12" height="12"><use href="#i-check"/></svg></div>
+          <span><strong>Schedule service appointments</strong> — auto repairs &amp; small engine jobs</span>
+        </li>
+        <li>
+          <div class="icon-wrap"><svg width="12" height="12"><use href="#i-check"/></svg></div>
+          <span><strong>Answer service questions</strong> — what's covered, turnaround time, pricing</span>
+        </li>
+        <li>
+          <div class="icon-wrap"><svg width="12" height="12"><use href="#i-check"/></svg></div>
+          <span><strong>Capture customer info</strong> — vehicle, issue description, contact details</span>
+        </li>
+        <li>
+          <div class="icon-wrap"><svg width="12" height="12"><use href="#i-check"/></svg></div>
+          <span><strong>After-hours coverage</strong> — never lose a job to a missed call</span>
+        </li>
+      </ul>
+
+      <div class="chips">
+        <div class="chip bilingual-chip">🇺🇸 EN &nbsp;|&nbsp; 🇲🇽 ES</div>
+        <div class="chip"><svg width="12" height="12"><use href="#i-clock"/></svg> 24/7 Available</div>
+        <div class="chip"><svg width="12" height="12"><use href="#i-calendar"/></svg> Appointment Booking</div>
+        <div class="chip"><svg width="12" height="12"><use href="#i-user"/></svg> Lead Capture</div>
+      </div>
+    </div>
+
+    <!-- Right -->
+    <div class="right">
+
+      <!-- Services grid -->
+      <div class="svc-grid">
+        <div class="svc"><svg width="13" height="13"><use href="#i-oil"/></svg> Oil Changes</div>
+        <div class="svc"><svg width="13" height="13"><use href="#i-brake"/></svg> Brakes</div>
+        <div class="svc"><svg width="13" height="13"><use href="#i-engine"/></svg> Engine Repair</div>
+        <div class="svc"><svg width="13" height="13"><use href="#i-bolt"/></svg> Electrical</div>
+        <div class="svc"><svg width="13" height="13"><use href="#i-scissors"/></svg> Small Engines</div>
+        <div class="svc"><svg width="13" height="13"><use href="#i-leaf"/></svg> Lawn Equipment</div>
+      </div>
+
+      <!-- Demo CTA -->
+      <div class="demo-box">
+        <div class="arrow-wrap">
+          <span class="arrow-label">Try the Demo</span>
+          <span class="arrow-anim">
+            <svg width="18" height="18" color="#f59e0b"><use href="#i-arrow-dr"/></svg>
+          </span>
+        </div>
+        <p>
+          Click <strong>"Talk to Us"</strong> in the <strong>bottom-right corner</strong> to speak with the AI — try it in English or Spanish.
+        </p>
+      </div>
+
+      <!-- Say box bilingual -->
+      <div class="say-box">
+        <div class="label">Try it in either language</div>
+        <p>"Hi, I need to bring my truck in for an oil change and brake check. When's the earliest you have available?"</p>
+        <p class="es">"Hola, necesito llevar mi camión para un cambio de aceite. ¿Cuándo tienen disponibilidad?"</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-strip">
+    <p>RDP Auto &amp; Small Engine — Auto Repair &amp; Small Engine Service</p>
+    <p class="powered">Powered by Retell AI</p>
+  </div>
+
+</div>
+</body>
+</html>
