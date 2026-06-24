@@ -109,54 +109,18 @@
       text-transform: uppercase;
     }
 
-    /* Bilingual badge in header */
-    .bilingual-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(180,83,9,.25);
-      border: 1.5px solid rgba(245,158,11,.4);
-      border-radius: 12px;
-      padding: 8px 15px;
+    .top-band .ai-badge {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.7rem;
+      color: var(--white);
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
       white-space: nowrap;
     }
-
-    .bilingual-badge .flags { font-size: 1.1rem; line-height: 1; }
-
-    .bilingual-badge .lang-info { color: var(--white); }
-
-    .bilingual-badge .lang-info strong {
-      display: block;
-      font-size: 0.76rem;
-      font-weight: 700;
-    }
-
-    .bilingual-badge .lang-info span {
-      font-size: 0.65rem;
-      opacity: .72;
-      font-style: italic;
-    }
-
-    /* ─── Bilingual strip ─── */
-    .bilingual-strip {
-      background: linear-gradient(90deg, var(--amber) 0%, var(--amber2) 50%, var(--green) 100%);
-      padding: 9px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-    }
-
-    .lang-pill {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--white);
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    .strip-divider { color: rgba(255,255,255,.4); }
 
     /* ─── Body ─── */
     .body {
@@ -184,29 +148,6 @@
       color: var(--mid);
       line-height: 1.6;
       margin-bottom: 16px;
-    }
-
-    /* Bilingual feature highlight */
-    .bilingual-feature {
-      background: linear-gradient(135deg, var(--warm) 0%, #fef9e7 100%);
-      border: 1.5px solid var(--border);
-      border-left: 4px solid var(--amber2);
-      border-radius: 10px;
-      padding: 11px 14px;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .bilingual-feature .bi-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
-
-    .bilingual-feature strong { color: var(--amber); font-size: 0.845rem; display: block; margin-bottom: 2px; }
-
-    .bilingual-feature .es-line {
-      font-style: italic;
-      color: var(--mid);
-      font-size: 0.79rem;
     }
 
     /* Features */
@@ -360,13 +301,6 @@
 
     .say-box p { font-size: 0.78rem; color: var(--ink); line-height: 1.55; font-style: italic; }
 
-    .say-box .es {
-      margin-top: 6px;
-      padding-top: 6px;
-      border-top: 1px dashed var(--border);
-      color: var(--mid);
-    }
-
     /* ─── Footer ─── */
     .footer-strip {
       background: var(--dark);
@@ -421,25 +355,7 @@
       <h1>RDP Auto &amp; Small Engine</h1>
       <p>Auto Repair &amp; Small Engine Service</p>
     </div>
-    <div class="bilingual-badge">
-      <div class="flags">🇺🇸 🇲🇽</div>
-      <div class="lang-info">
-        <strong>English &amp; Español</strong>
-        <span>Hablamos su idioma</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bilingual strip -->
-  <div class="bilingual-strip">
-    <div class="lang-pill">🇺🇸 We speak English</div>
-    <div class="strip-divider">&bull;</div>
-    <div class="lang-pill" style="font-style:italic;">🇲🇽 Hablamos español</div>
-    <div class="strip-divider">&bull;</div>
-    <div class="lang-pill">
-      <svg width="12" height="12" color="rgba(255,255,255,.85)"><use href="#i-mic"/></svg>
-      Just start speaking — our AI follows your language
-    </div>
+    <div class="ai-badge">AI Demo</div>
   </div>
 
   <!-- Body -->
@@ -451,15 +367,6 @@
       <p class="tagline">
         RDP's AI handles calls around the clock — scheduling service appointments, answering repair questions, and capturing customer info for both auto and small engine work.
       </p>
-
-      <!-- Bilingual highlight -->
-      <div class="bilingual-feature">
-        <div class="bi-icon">🌐</div>
-        <div>
-          <strong>Fully Bilingual — English &amp; Spanish</strong>
-          <span class="es-line">Nuestro asistente habla español — llame en el idioma que prefiera</span>
-        </div>
-      </div>
 
       <ul class="features">
         <li>
@@ -481,10 +388,10 @@
       </ul>
 
       <div class="chips">
-        <div class="chip bilingual-chip">🇺🇸 EN &nbsp;|&nbsp; 🇲🇽 ES</div>
         <div class="chip"><svg width="12" height="12"><use href="#i-clock"/></svg> 24/7 Available</div>
         <div class="chip"><svg width="12" height="12"><use href="#i-calendar"/></svg> Appointment Booking</div>
         <div class="chip"><svg width="12" height="12"><use href="#i-user"/></svg> Lead Capture</div>
+        <div class="chip"><svg width="12" height="12"><use href="#i-mic"/></svg> Bilingual EN / ES</div>
       </div>
     </div>
 
@@ -514,11 +421,10 @@
         </p>
       </div>
 
-      <!-- Say box bilingual -->
+      <!-- Say box -->
       <div class="say-box">
-        <div class="label">Try it in either language</div>
+        <div class="label">What to try</div>
         <p>"Hi, I need to bring my truck in for an oil change and brake check. When's the earliest you have available?"</p>
-        <p class="es">"Hola, necesito llevar mi camión para un cambio de aceite. ¿Cuándo tienen disponibilidad?"</p>
       </div>
 
     </div>
